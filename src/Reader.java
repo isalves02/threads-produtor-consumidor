@@ -42,7 +42,7 @@ public class Reader extends Thread {
                 if (rc == 0) this.db.release(); // Fecha o semaforo para que não possa mais realizar leitura
                 this.mutex.release();
 
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -50,21 +50,22 @@ public class Reader extends Thread {
     }
 
     private void readBooks() {
-        System.out.println(String.format("A %s está pegando o livros", this.getName()));
+        System.out.println(String.format("A %s está lendo livro(s)", this.getName()));
 
         int number_max_books = 1 + this.random.nextInt(9);
         int number_min_books = 1 + this.random.nextInt(number_max_books);
-        System.out.println("min: " + number_min_books + " | max: " + number_max_books);
         for(int i = number_min_books; i <= number_max_books; i++) {
             if(this.books[i] == "livro") {
                 this.books[i] = null;
             }
         }
-
+        int count = 0;
         for(String livro : this.books) {
-            System.out.print(livro + " ");
+            if(livro != null) {
+            	count++;
+            }
         }
-        System.out.println("\n");
-
+        System.out.println(count+ " Livro(s) lido(s)");
+        System.out.println("---------------------------------\n");
     }
 }

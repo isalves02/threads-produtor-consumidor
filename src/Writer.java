@@ -38,21 +38,22 @@ public class Writer extends Thread {
     }
 
     private void writeBooks() {
-        System.out.println(String.format("A %s está escrevendo livros", this.getName()));
+        System.out.println(String.format("A %s está escrevendo livro(s)", this.getName()));
 
         int number_max_books = 1 + this.random.nextInt(9);
         int number_min_books = 1 + this.random.nextInt(number_max_books);
-        System.out.println("min: " + number_min_books + " | max: " + number_max_books);
         for(int i = number_min_books; i <= number_max_books; i++) {
             if(this.books[i] == null) {
                 this.books[i] = "livro";
             }
         }
-
+        int count = 0;
         for(String livro : this.books) {
-            System.out.print(livro + " ");
+            if(livro != null) {
+            	count++;
+            }
         }
-        System.out.println("\n");
-
+        System.out.println(count+ " Livro(s) escrito(s)");
+        System.out.println("---------------------------------\n");
     }
 }
