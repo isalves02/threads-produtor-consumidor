@@ -6,12 +6,19 @@ public class ReadWriter {
     static int rc = 0;                         // número de processos lendo ou querendo ler
 
     public static void main(String[] args) {
-        Thread reader = new Thread(new Reader());
-        Thread reader2 = new Thread(new Reader());
-        Thread writer = new Thread(new Writer());
+        // Criação das threads para leitor e escritor
+        Thread reader1 = new Thread(new Reader(), "Reader 1");
+        Thread reader2 = new Thread(new Reader(), "Reader 2");
+        Thread reader3 = new Thread(new Reader(), "Reader 3");
+        Thread writer1 = new Thread(new Writer(), "Writer 1");
+        Thread writer2 = new Thread(new Writer(), "Writer 2");
 
-        reader.start();
-        writer.start();
+        // Inicia as threads de leitor e escritor
+        reader1.start();
+        reader2.start();
+        reader3.start();
+        writer1.start();
+        writer2.start();
     }
 
     static class Reader implements Runnable {
@@ -39,11 +46,11 @@ public class ReadWriter {
         }
 
         private void readDataBase() {
-            System.out.println("Lendo dados da base...");
+            System.out.println(Thread.currentThread().getName() + " está lendo dados.");
         }
 
         private void useDataRead() {
-            System.out.println("Usando dados lidos...");
+            System.out.println(Thread.currentThread().getName() + " está consumindo dados.");
         }
     }
 
@@ -64,11 +71,11 @@ public class ReadWriter {
         }
 
         private void thinkUpData() {
-            System.out.println("Pensando em novos dados...");
+            System.out.println(Thread.currentThread().getName() + " está aguardando.");
         }
 
         private void writeDataBase() {
-            System.out.println("Escrevendo dados na base...");
+            System.out.println(Thread.currentThread().getName() + " está produzindo.");
         }
     }
 }
