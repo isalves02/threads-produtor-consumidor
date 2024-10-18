@@ -4,9 +4,7 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Writer extends Thread {
-    public Semaphore mutex; 
-    public Semaphore bookShelf_acess;    
-    public Integer rc;  
+    public Semaphore bookShelf_acess; 
     public String[] books;
     public Random random = new Random();
 
@@ -24,6 +22,7 @@ public class Writer extends Thread {
 
                 writeBooks(); // Escreve, escreve, escreve...
                 
+                
                 this.bookShelf_acess.release(); // Abre o semaforo de acesso a estante de livros
 
                 Thread.sleep(1000);
@@ -37,7 +36,7 @@ public class Writer extends Thread {
         System.out.println(String.format("A %s está escrevendo livro(s)", this.getName()));
 
         int count = 0;
-        int start_interval = 1 + this.random.nextInt(9);
+        int start_interval = 1 + this.random.nextInt(this.books.length - 1);
         int end_interval = 0 + this.random.nextInt(start_interval);
         for(int i = end_interval; i <= start_interval; i++) {
             if(this.books[i] == null) {
