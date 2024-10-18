@@ -1,2 +1,5 @@
 # Estudo de threads com o desafio Produtor-Consumidor
-Solução estudada e definida com o auxílio do livro "Sistemas Operacionais Modernos" de Tanenbaum.
+    Solução estudada e definida com o auxílio do livro "Sistemas Operacionais Modernos" de Tanenbaum.
+
+# Comando para executar
+    java ReadWriter.java
