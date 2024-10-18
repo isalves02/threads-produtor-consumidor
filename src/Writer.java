@@ -38,21 +38,41 @@ public class Writer extends Thread {
     }
 
     private void writeBooks() {
-        System.out.println(String.format("A %s está escrevendo livros", this.getName()));
+        System.out.println(String.format("A %s está escrevendo livro(s)", this.getName()));
 
-        int number_max_books = 1 + this.random.nextInt(9);
-        int number_min_books = 1 + this.random.nextInt(number_max_books);
-        System.out.println("min: " + number_min_books + " | max: " + number_max_books);
-        for(int i = number_min_books; i <= number_max_books; i++) {
+        int count = 0;
+        int start_interval = 1 + this.random.nextInt(9);
+        int end_interval = 0 + this.random.nextInt(start_interval);
+        for(int i = end_interval; i <= start_interval; i++) {
             if(this.books[i] == null) {
                 this.books[i] = "livro";
+                count++;
             }
         }
 
-        for(String livro : this.books) {
-            System.out.print(livro + " ");
-        }
-        System.out.println("\n");
+        System.out.println(count+ " foram escrito(s)");
+        bookcase();
+        showBookShelf();
 
+    }
+
+    private void showBookShelf() {
+        for(String livro : this.books) {
+            System.out.print(livro == "livro" ? 
+                            Colors.GREEN_BOLD + livro + Colors.RESET  + " " : 
+                            Colors.RED_BOLD + livro + Colors.RESET  + " "
+            );
+        }
+        System.out.println("\n---------------------------------\n");
+    }
+
+    private void bookcase(){
+    	int count = 0;
+    	for(String livro : this.books) {
+    		if(livro != null) {
+    			count++;
+    		}
+        }
+    	System.out.println("Estante: "+count+" Livro(s)");
     }
 }
