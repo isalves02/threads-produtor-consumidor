@@ -1,14 +1,18 @@
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class Writer extends Thread {
     public Semaphore mutex; // controla o acesso a 'rc'
     public Semaphore db;    // controla o acesso à base de dados
     public Integer rc;  
+    public String[] books;
+    public Random random = new Random();
 
-    public Writer(Semaphore mutex, Semaphore db, Integer rc) {
+    public Writer(Semaphore mutex, Semaphore db, Integer rc, String[] books) {
         this.mutex = mutex;
         this.db = db;
         this.rc = rc;
+        this.books = books;
     }
 
     /*
@@ -20,21 +24,35 @@ public class Writer extends Thread {
         while (true) {
             try {
 
-                this.db.acquire(); //Abre o semaforo para poder escrever
-                System.out.println("\nLivro aberto - " + this.getName());
+                this.db.acquire();
 
-                writeDataBase(); // Escreve, escreve, escreve...
+                writeBooks(); // Escreve, escreve, escreve...
+                
+                this.db.release(); 
 
-                this.db.release(); // Fecha o semaforo para que não possa mais escrever
-                System.out.println("Livro fechado - " + this.getName() + "\n");
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void writeDataBase() {
-        System.out.println(String.format("A %s está escrevendo no livro", this.getName()));
+    private void writeBooks() {
+        System.out.println(String.format("A %s está escrevendo livros", this.getName()));
+
+        int number_max_books = 1 + this.random.nextInt(9);
+        int number_min_books = 1 + this.random.nextInt(number_max_books);
+        System.out.println("min: " + number_min_books + " | max: " + number_max_books);
+        for(int i = number_min_books; i <= number_max_books; i++) {
+            if(this.books[i] == null) {
+                this.books[i] = "livro";
+            }
+        }
+
+        for(String livro : this.books) {
+            System.out.print(livro + " ");
+        }
+        System.out.println("\n");
+
     }
 }
