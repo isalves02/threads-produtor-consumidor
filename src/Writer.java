@@ -39,21 +39,27 @@ public class Writer extends Thread {
 
     private void writeBooks() {
         System.out.println(String.format("A %s está escrevendo livro(s)", this.getName()));
-
+        int count = 0;
         int number_max_books = 1 + this.random.nextInt(9);
         int number_min_books = 1 + this.random.nextInt(number_max_books);
         for(int i = number_min_books; i <= number_max_books; i++) {
             if(this.books[i] == null) {
                 this.books[i] = "livro";
+                count++;
             }
         }
-        int count = 0;
-        for(String livro : this.books) {
-            if(livro != null) {
-            	count++;
-            }
+        System.out.println(count+ " foram escrito(s)");
+        bookcase();
+        System.out.println("---------------------------------");
+    }
+    
+    private void bookcase(){
+    	int count = 0;
+    	for(String livro : this.books) {
+    		if(livro != null) {
+    			count++;
+    		}
         }
-        System.out.println(count+ " Livro(s) escrito(s)");
-        System.out.println("---------------------------------\n");
+    	System.out.println("Estante: "+count+" Livro(s)");
     }
 }
