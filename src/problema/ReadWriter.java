@@ -1,4 +1,4 @@
-package problema;
+package main;
 
 import java.util.concurrent.Semaphore;
 
@@ -7,16 +7,18 @@ public class ReadWriter {
     static String[] books = new String[10];
 
     public static void main(String[] args) {
-        Reader reader1 = new Reader(bookShelf_acess, books);
-        Writer writer1 = new Writer(bookShelf_acess, books);
-        Reader reader2 = new Reader(bookShelf_acess, books);
-        Writer writer2 = new Writer(bookShelf_acess, books);
-
-        reader2.start();
-        reader1.start();
-        writer1.start();
-        writer2.start();
-        
-        
+    	
+    	Reader[] readers = new Reader[3];
+    	Writer[] writers = new Writer[2];
+    	
+    	for(int i = 0; i < readers.length; i++) {
+    		readers[i] = new Reader(bookShelf_acess, books);
+    		readers[i].start();
+    	}
+    	
+    	for(int i = 0; i < writers.length; i++) {
+    		writers[i] = new Writer(bookShelf_acess, books);
+    		writers[i].start();
+    	}
     }
 }
