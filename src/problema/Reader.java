@@ -1,4 +1,4 @@
-package problema;
+package main;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;
@@ -34,9 +34,9 @@ public class Reader extends Thread {
         System.out.println(String.format("A %s está lendo livro(s)", this.getName()));
 
         int count = 0;
-        int start_interval = 1 + this.random.nextInt(this.books.length - 1);
-        int end_interval = 0 + this.random.nextInt(start_interval);
-        for(int i = end_interval; i <= start_interval; i++) {
+        int end_interval = 1 + this.random.nextInt(this.books.length - 1);
+        int start_interval = 0 + this.random.nextInt(end_interval);
+        for(int i = start_interval; i <= end_interval; i++) {
             if(this.books[i] == "livro") {
                 this.books[i] = null;
                 count++;
@@ -51,10 +51,11 @@ public class Reader extends Thread {
 
     private void showBookShelf() {
         for(String livro : this.books) {
-            System.out.print(livro == "livro" ? 
-                            Colors.GREEN_BOLD + livro + Colors.RESET  + " " : 
-                            Colors.RED_BOLD + livro + Colors.RESET  + " "
-            );
+            System.out.print(livro + " ");
+        	/* System.out.print(livro == "livro" ? 
+                     Colors.GREEN_BOLD + livro + Colors.RESET  + " " : 
+                     Colors.RED_BOLD + livro + Colors.RESET  + " "
+        			 );*/
         }
         System.out.println("\n---------------------------------\n");
     }
