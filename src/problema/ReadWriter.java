@@ -1,4 +1,4 @@
-package main;
+package problema;
 
 import java.util.concurrent.Semaphore;
 
